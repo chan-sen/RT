@@ -59,4 +59,20 @@ int		main(int argc, char **argv)
 	if (env)
 		rt(env);
 	return (0);
+
 }
+
+// suedo bukkshit
+//
+// for (y = 0; y < WIN_HGT; y++)
+// {for (x = 0; x < WIN_WDT; x++;)
+// 	{
+// 		1. > Build the ray from cam (rc)
+// 		2. > Find all intersections of (rc) with objects
+// 		3. > Find all intersection that lies closest to the eye
+// 		4. > Compute the hit point where the ray hits this object,
+// 				and the normal vector at that point
+// 		5. > Find the color of the light returning to the eye
+// 				along the ray from the point of intersections
+// 		6. > Place the colot in the (rc) pixel
+// 	}
