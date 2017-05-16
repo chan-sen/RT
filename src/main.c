@@ -51,6 +51,40 @@ t_env	*make_env(int argc, char **argv)
 	return (env);
 }
 
+void image_to(t_env *env)
+{
+	env->oldtime = env->time;
+	env->time = clock();
+	env->frame = (env->time - env->oldtime) / CLOCKS_PER_SEC;
+	mlx_clear_window(env->mlx, env->win);
+	if (env->image.img)
+		mlx_put_image_to_window(env->mlx, env->win, env->image.img, 0, 0);
+	mlx_string_put(env->mlx, env->win, 0, 0, 0xFFFFFF,
+		ft_itoa((int)(1 / env->frametime)));
+	env->image = make_img(env->mlx);
+	env->cam->mvspd = (env->frametime * 6.0);
+	env->cam->rtspd = (env->frametime * 3.0);
+}
+
+int		rt_hook(t_env *env)
+{
+	image_to(env);
+	raytrace(env);
+	key_opts(env);
+	return (1);
+}
+
+void rt(t_env *env)
+{
+	env->mlx = mlx_init();
+	env->win = mlx_new_window(env->mlx, WIN_WDT, WIN_HGT, "chansen ~ RT");
+	mlx_loop_hook(env->mlx, rt_hook, env);
+	mlx_hook(env->win, 2, 0, key_press, env);
+	mlx_hook(env->win, 3, 0, key_release, env);
+	mlx_hook(env->win, 17, 0, exit_hook, env);
+	mlx_loop(env->mlx);
+}
+
 int		main(int argc, char **argv)
 {
 	t_env		*env;
