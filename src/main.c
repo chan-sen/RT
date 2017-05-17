@@ -51,7 +51,31 @@ t_env	*make_env(int argc, char **argv)
 	return (env);
 }
 
-void image_to(t_env *env)
+t_img		make_img(void *mlx)
+{
+	t_img	image;
+
+	image.img = mlx_new_image(mlx, WIN_WDT, WIN_HGT);
+	image.data = mlx_get_data_addr(image.img, &image.bits,
+		&image.sizeline, &image.endian);
+	image.height = WIN_HGT;
+	image.width = WIN_WDT;
+	return (image);
+}
+
+void		put_image_pixel(t_img image, int x, int y, int color)
+{
+	int			b;
+
+	if (x < 0 || y < 0 || x >= image.width || y >= image.height)
+		return ;
+	b = (4 * x) + (y * image.sizeline);
+	image.data[b++] = color & 0xFF;
+	image.data[b++] = (color >> 8) & 0xFF;
+	image.data[b++] = (color >> 16) & 0xFF;
+}
+
+void		image_to(t_env *env)
 {
 	env->oldtime = env->time;
 	env->time = clock();
@@ -66,15 +90,37 @@ void image_to(t_env *env)
 	env->cam->rtspd = (env->frametime * 3.0);
 }
 
+void		key_optns(t_env *env)
+{
+	if (env);
+}
+
+void		raytracer(t_env *env)
+{
+	env->cam->camy = 0;
+	while (env->cam->camy < WIN_HGT)
+	{
+		env->cam->camx = 0;
+		while (env->cam->camx < WIN_WDT)
+		{
+			buildray(env);
+			traceray(env);
+			env->cam->camx++;
+		}
+		env->cam->camy++;
+	}
+
+}
+
 int		rt_hook(t_env *env)
 {
 	image_to(env);
-	raytrace(env);
-	key_opts(env);
+	raytracer(env);
+	key_optns(env);
 	return (1);
 }
 
-void rt(t_env *env)
+void		rt(t_env *env)
 {
 	env->mlx = mlx_init();
 	env->win = mlx_new_window(env->mlx, WIN_WDT, WIN_HGT, "chansen ~ RT");
@@ -96,10 +142,11 @@ int		main(int argc, char **argv)
 
 }
 
-// suedo bukkshit
+// psuedo bukkshit
 //
 // for (y = 0; y < WIN_HGT; y++)
-// {for (x = 0; x < WIN_WDT; x++;)
+// {
+// 	for (x = 0; x < WIN_WDT; x++)
 // 	{
 // 		1. > Build the ray from cam (rc)
 // 		2. > Find all intersections of (rc) with objects
@@ -108,5 +155,6 @@ int		main(int argc, char **argv)
 // 				and the normal vector at that point
 // 		5. > Find the color of the light returning to the eye
 // 				along the ray from the point of intersections
-// 		6. > Place the colot in the (rc) pixel
+// 		6. > Place the color in the (rc) pixel
 // 	}
+// }

@@ -144,6 +144,8 @@ typedef struct		s_cam
 	int				mapx;
 	int				mapy;
 	int				mapz;
+	int				camx;
+	int				camy;
 	double			posx;
 	double			posy;
 	double			posz;
