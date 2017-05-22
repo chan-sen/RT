@@ -1,0 +1,17 @@
+map file index:
+--------------
+
+first line : x y z, sizes
+followed by map top z layer down
+
+map objects:
+	> 0 : empty
+	> 1 : flat plane
+	> 2 : vert l plane
+	> 3 : vert r plane
+	> 4 : corner
+	> cam,x,y,z (vectors)
+	> sphere,radius
+	> col,radius,height
+	> cone,radius,height
+	> light,

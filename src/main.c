@@ -37,17 +37,24 @@ int		check(int argc, char **argv)
 	return (fd);
 }
 
+t_cam	*make_cam(t_map *map)
+{
+	t_cam	*cam;
+
+	cam = (t_cam *)malloc(sizeof(t_cam));
+	cam->pos = point(map->cpx, map->cpy, map->cpz);
+	cam->map
+
+}
+
 t_env	*make_env(int argc, char **argv)
 {
 	t_env		*env;
 	int			fd;
 
-	fd = check(argc, argv);
-	if (fd == 0)
-		return (NULL);
 	env = (t_env *)malloc(sizeof(t_env));
-	env->map = make_map(fd);
-
+	env->map = make_map();
+	env->cam = make_cam(env->map);
 	return (env);
 }
 
@@ -93,6 +100,15 @@ void		image_to(t_env *env)
 void		key_optns(t_env *env)
 {
 	if (env);
+}
+
+void buildray(t_env *env)
+{
+	if (env->cam->r)
+		clear_rays(env->cam->r);
+
+	env->cam->r = (t_rays **)malloc(sizeof(t_rays *)
+		* (env->cam->rflect + env->cam->rfract));
 }
 
 void		raytracer(t_env *env)

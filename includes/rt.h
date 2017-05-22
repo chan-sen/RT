@@ -52,9 +52,7 @@ typedef struct		s_sphr
 	int				xog;
 	int				yog;
 	int				zog;
-	double			x;
-	double			y;
-	double			z;
+	t_point			pos;
 	double			r;
 	int				color;
 	int				shine;
@@ -66,9 +64,7 @@ typedef struct		s_cone
 	int				xog;
 	int				yog;
 	int				zog;
-	double			x;
-	double			y;
-	double			z;
+	t_point			pos;
 	double			r;
 	double			h;
 	int				color;
@@ -80,10 +76,8 @@ typedef struct		s_col
 {
 	int				xog;
 	int				yog;
-	int				zog;
-	double			x;
-	double			y;
-	double			z;
+	int				zog;]
+	t_point			pos;
 	double			r;
 	double			h;
 	int				color;
@@ -96,12 +90,9 @@ typedef struct		s_lite
 	int				xog;
 	int				yog;
 	int				zog;
-	double			x;
-	double			y;
-	double			z;
+	t_point			pos;
 	double			r;
 	int				shine;
-
 }					t_lite;
 
 typedef struct		s_map
@@ -109,6 +100,12 @@ typedef struct		s_map
 	int				x;
 	int				y;
 	int				z;
+	int				cpx;
+	int				cpy;
+	int				cpz;
+	int				cvx;
+	int				cvy;
+	int				cvz;
 	int				***map;
 	t_sphr			**sphrs;
 	t_cone			**cones;
@@ -116,44 +113,32 @@ typedef struct		s_map
 	t_lite			**lites;
 }					t_map;
 
-typedef struct		s_vctrs
+typedef struct		s_point
 {
-	double			dx;
-	double			dy;
-	double			dz;
-	double			hplx;
-	double			hply;
-	double			hplz;
-	double			vplx;
-	double			vply;
-	double			vplz;
-}					t_vctrs;
+	double			x;
+	double			y;
+	double			z;
+}					t_point;
 
 typedef struct		s_rays
 {
-	double			rpx;
-	double			rpy;
-	double			rpz;
-	double			rdz;
-	double			rdy;
-	double			rdz;
+	t_point			rp;
+	t_point			rd;
 }					t_rays;
 
 typedef struct		s_cam
 {
-	int				mapx;
-	int				mapy;
-	int				mapz;
 	int				camx;
 	int				camy;
-	double			posx;
-	double			posy;
-	double			posz;
+	int				rfract;
+	int				rflect;
 	double			mvspd;
 	double			rtspd;
-	t_vctrs			*v;
-	t_rays			*r[7];
-
+	t_point			pos;
+	t_point			d;
+	t_point			hrpl;
+	t_point			vtpl;
+	t_rays			**r;
 }					t_cam;
 
 typedef struct		s_env
