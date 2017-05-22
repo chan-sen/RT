@@ -135,9 +135,9 @@ typedef struct		s_cam
 	double			mvspd;
 	double			rtspd;
 	t_point			pos;
-	t_point			d;
-	t_point			hrpl;
-	t_point			vtpl;
+	t_point			dir;
+	t_point			horpl;
+	t_point			vrtpl;
 	t_rays			**r;
 }					t_cam;
 
