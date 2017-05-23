@@ -76,7 +76,7 @@ typedef struct		s_col
 {
 	int				xog;
 	int				yog;
-	int				zog;]
+	int				zog;
 	t_point			pos;
 	double			r;
 	double			h;
@@ -100,6 +100,10 @@ typedef struct		s_map
 	int				x;
 	int				y;
 	int				z;
+	int				sps;
+	int				cns;
+	int				cls;
+	int				lts;
 	int				cpx;
 	int				cpy;
 	int				cpz;

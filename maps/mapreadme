@@ -2,6 +2,11 @@ map file index:
 --------------
 
 first line : x y z, sizes
+
+second line : lites, #
+
+third line : spheres cones cols, #
+
 followed by map top z layer down
 
 map objects:

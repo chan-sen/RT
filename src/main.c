@@ -28,13 +28,30 @@ int		check(int argc, char **argv)
 
 	if (argc != 2)
 		return (usage(1));
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argc[1], O_RDONLY);
 	if (fd == 0)
-		return (usage(2));
-	map = check_map(fd);
-	if (map == NULL)
-		return (usage(3));
+		return (NULL);
 	return (fd);
+}
+
+t_point	hori_plane(t_point pos, t_point dir)
+{
+	t_point		ret;
+
+	ret.x = ;
+	ret.y = ;
+	ret.z = ;
+	return (ret);
+}
+
+t_point	vert_plane(t_point pos, t_point dir)
+{
+	t_point		ret;
+
+	ret.x = ;
+	ret.y = ;
+	ret.z = ;
+	return (ret);
 }
 
 t_cam	*make_cam(t_map *map)
@@ -42,9 +59,18 @@ t_cam	*make_cam(t_map *map)
 	t_cam	*cam;
 
 	cam = (t_cam *)malloc(sizeof(t_cam));
-	cam->pos = point(map->cpx, map->cpy, map->cpz);
-	cam->map
-
+	cam->camx = 0;
+	cam->camy = 0;
+	cam->rfract = 0;
+	cam->rflect = 0;
+	cam->mvspd = 5.0;
+	cam->rtspd = 3.0;
+	cam->pos = point_itod(map->cpx, map->cpy, map->cpz);
+	cam->dir = point_itod(map->cdx, map->cdy, map->cdz);
+	cam->horpl = hori_plane(cam->pos, cam->dir);
+	cam->vrtpl = vert_plane(cam->pos, cam->dir);
+	cam->r = NULL;
+	return (NULL);
 }
 
 t_env	*make_env(int argc, char **argv)
