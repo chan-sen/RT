@@ -99,9 +99,19 @@ t_objects	*make_objects(int lte, int s, int cns, int cls)
 	t_objects	*ret;
 
 	ret = (t_object *)malloc(sizeof(t_object));
-	ret->lites = make_lites(lts);
+	ret->cpx = 0;
+	ret->cpy = 0;
+	ret->cpz = 0;
+	ret->cdx = 0;
+	ret->cdy = 0;
+	ret->cdz = 0;
+	ret->(*s) = 0;
+	ret->(*con) = 0;
+	ret->(*col) = 0;
+	ret->(*lte) = 0;
 	ret->sphrs = make_sphrs(s);
 	ret->cones = make_cones(cns);
 	ret->cols = make_cols(cls);
+	ret->lites = make_lites(lts);
 	return (ret);
 }

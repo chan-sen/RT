@@ -97,6 +97,16 @@ typedef struct		s_lite
 
 typedef struct		s_objects
 {
+	int				cpx;
+	int				cpy;
+	int				cpz;
+	int				cdx;
+	int				cdy;
+	int				cdz;
+	int				*s;
+	int				*con;
+	int				*col;
+	int				*lte;
 	t_sphr			**sphrs;
 	t_cone			**cones;
 	t_col			**cols;
@@ -112,14 +122,8 @@ typedef struct		s_map
 	int				cns;
 	int				cls;
 	int				lts;
-	int				cpx;
-	int				cpy;
-	int				cpz;
-	int				cvx;
-	int				cvy;
-	int				cvz;
 	int				***map;
-	t_objects		*objects;
+	t_objects		*objectd;
 }					t_map;
 
 typedef struct		s_point
