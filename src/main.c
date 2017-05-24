@@ -79,8 +79,15 @@ t_env	*make_env(int argc, char **argv)
 	int			fd;
 
 	env = (t_env *)malloc(sizeof(t_env));
+	env->mlx = NULL;
+	env->win = NULL;
+	env->time = 0;
+	env->oldtime = 0;
+	env->frametime = 0;
 	env->map = make_map();
 	env->cam = make_cam(env->map);
+	env->img = NULL;
+	env->keys = make_keys();
 	return (env);
 }
 

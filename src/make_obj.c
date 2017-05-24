@@ -93,3 +93,15 @@ t_lite		**make_lites(int l)
 	}
 	return (ret);
 }
+
+t_objects	*make_objects(int lte, int s, int cns, int cls)
+{
+	t_objects	*ret;
+
+	ret = (t_object *)malloc(sizeof(t_object));
+	ret->lites = make_lites(lts);
+	ret->sphrs = make_sphrs(s);
+	ret->cones = make_cones(cns);
+	ret->cols = make_cols(cls);
+	return (ret);
+}

@@ -95,6 +95,14 @@ typedef struct		s_lite
 	int				shine;
 }					t_lite;
 
+typedef struct		s_objects
+{
+	t_sphr			**sphrs;
+	t_cone			**cones;
+	t_col			**cols;
+	t_lite			**lites;
+}					t_objects;
+
 typedef struct		s_map
 {
 	int				x;
@@ -111,10 +119,7 @@ typedef struct		s_map
 	int				cvy;
 	int				cvz;
 	int				***map;
-	t_sphr			**sphrs;
-	t_cone			**cones;
-	t_col			**cols;
-	t_lite			**lites;
+	t_objects		*objects;
 }					t_map;
 
 typedef struct		s_point

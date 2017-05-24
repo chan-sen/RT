@@ -11,7 +11,7 @@ void pull_xyz(char *str, int *x, int *y, int *z)
 	(*z) = ft_getnbr(str, &i);
 }
 
-int		*fill_row(int fd, int mx);
+int		*fill_row(int fd, int mx, t_objects *objects);
 {
 	int		*ret;
 	char	*line;
@@ -27,13 +27,21 @@ int		*fill_row(int fd, int mx);
 	while (x < mx)
 	{
 		if (ft_isdigit(line[i]))
-			ret[y][x] = get_nbr();
+			ret[y][x] = get_nbr(line, &i);
+		else
+		{
+			ret[y][x] = 0;
+			fill_object(get_word(line, &i), objects);
+		}
+		if (line[i] == ' ')
+			i++;
+		i++;
 		x++;
 	}
 	y++;
 }
 
-int		**fill_layer(int fd, int mx, int my)
+int		**fill_layer(int fd, int mx, int my, t_objects *objects)
 {
 	int		**ret;
 	int		x;
@@ -42,7 +50,7 @@ int		**fill_layer(int fd, int mx, int my)
 	y = 0;
 	ret = (int **)malloc(sizeof(int *) * my)
 	while (y < my)
-		ret[y++] = fill_row();
+		ret[y++] = fill_row(fd, mx, objects);
 	return (ret);
 }
 
@@ -64,12 +72,9 @@ t_map	*make_map(int argc, char *argv)
 		pull_lites(line, &map->lts);
 	if (1 == get_next_line(fd, &line))
 		pull_objs(line, &map->sps, &map->cns, &map->cls);
-	map->lites = make_lites(map->lts);
-	map->sphrs = make_sphrs(map->sps);
-	map->cones = make_cones(map->cns);
-	map->cols = make_cols(map->cls);
+	map->objects = make_objects(map->lts, map->sps, map->cns, map->cls);
 	map->map = (int ***)malloc(sizeof(int **) * map->z);
 	while (z < map->z)
-		map->map[z++] = fill_layer(fd, map->x, map->y);
+		map->map[z++] = fill_layer(fd, map->x, map->y, map->objects);
 	return (map);
 }

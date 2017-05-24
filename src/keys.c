@@ -34,3 +34,17 @@ int		key_release(int key, t_env *env)
 		env->keys->e = 0;
 	return (key);
 }
+
+t_keys			*make_keys(void)
+{
+	t_keys		*key;
+
+	key = (t_keys *)malloc(sizeof(t_keys));
+	key->w = 0;
+	key->a = 0;
+	key->s = 0;
+	key->d = 0;
+	key->q = 0;
+	key->e = 0;
+	return (key);
+}
