@@ -11,33 +11,18 @@ void pull_xyz(char *str, int *x, int *y, int *z)
 	(*z) = ft_getnbr(str, &i);
 }
 
-void set_cam(char *str, t_objects *objects, t_point p)
-{
-	int		i;
-
-	i = 4;
-	objects->cpx = (int)p.x;
-	objects->cpy = (int)p.y;
-	objects->cpz = (int)p.z;
-	objects->cdx = ft_getnbr(str, &i);
-	i++;
-	objects->cdy = ft_getnbr(str, &i);
-	i++;
-	objects->cdz = ft_getnbr(str, &i);
-}
-
 void fill_object(char *str, t_objects *objects, t_point p)
 {
 	if (0 == ft_strncmp(str, "cam", 3))
 		set_cam(str, objects, p);
 	if (0 == ft_strncmp(str, "sphere", 6))
-		objects->sphrs[objects->(*s)++] = set_sphr(str, objects, p);
+		set_sphr(str, objects->sphrs[objects->(*s)++], p);
 	if (0 == ft_strncmp(str, "cone", 4))
-		objects->cones[objects->(*con)++] = set_cone(str, objects, p);
+		set_cone(str, objects->cones[objects->(*con)++], p);
 	if (0 == ft_strncmp(str, "col", 3))
-		objects->cols[objects->(*col)++] = set_col(str, objects, p);
+		set_col(str, objects->cols[objects->(*col)++], p);
 	if (0 == ft_strcmp(str, "light", 5))
-		objects->lites[objects->(*lte)++] = set_lite(str, objects, p);
+		set_lite(str, objects->lites[objects->(*lte)++], p);
 }
 
 int		*fill_row(int fd, int mx, t_objects *objects);
@@ -56,7 +41,7 @@ int		*fill_row(int fd, int mx, t_objects *objects);
 	while (x < mx)
 	{
 		if (ft_isdigit(line[i]))
-			ret[y][x] = get_nbr(line, &i);
+			ret[y][x] = ft_get_nbr(line, &i);
 		else
 		{
 			ret[y][x] = 0;
@@ -94,6 +79,8 @@ t_map	*make_map(int argc, char *argv)
 	set3to0(&z, &y, &x);
 	fd = check(argc, argv);
 	map = (t_map *)malloc(sizeof(t_map));
+	set3to0(&map->x, &map->y, &map->z);
+	set4to0(&map->lts, &map->sps, &map->cns, &map->cls);
 	if (1 == get_next_line(fd, &line))
 		pull_xyz(line, &map->x, &map->y, &map->z);
 	if (1 == get_next_line(fd, &line))

@@ -12,6 +12,21 @@
 
 #include "./../includes/rt.h"
 
+void	set3to0(int *a, int *b, int *c)
+{
+	(*a) = 0;
+	(*b) = 0;
+	(*c) = 0;
+}
+
+void	set4to0(int *a, int *b, int *c, int *d)
+{
+	(*a) = 0;
+	(*b) = 0;
+	(*c) = 0;
+	(*d) = 0;
+}
+
 int		usage(int err)
 {
 	if (err == 1)
