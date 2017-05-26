@@ -1,5 +1,5 @@
 
-#include "./includes/rt.h"
+#include "./../includes/rt.h"
 
 void pull_xyz(char *str, int *x, int *y, int *z)
 {

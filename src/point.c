@@ -1,5 +1,5 @@
 
-#include "./includes/rt.h"
+#include "./../includes/rt.h"
 
 t_point		point(double x, double y, double z)
 {
@@ -20,4 +20,3 @@ t_point		point_itod(int x, int y, int z)
 	point.z = (double)(z);
 	return (point);
 }
-

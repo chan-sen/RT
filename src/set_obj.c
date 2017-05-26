@@ -1,5 +1,5 @@
 
-#include "./includes/rt.h"
+#include "./../includes/rt.h"
 
 void set_cam(char *str, t_objects *objects, t_point p)
 {

@@ -1,5 +1,5 @@
 
-#include "./includes/rt.h"
+#include "./../includes/rt.h"
 
 int		key_press(int key, t_env *env)
 {

@@ -45,6 +45,8 @@ typedef struct		s_keys
 	int				spc;
 	int				z;
 	int				x;
+	int				r;
+	int				f;
 }
 
 typedef struct		s_sphr
@@ -133,11 +135,11 @@ typedef struct		s_point
 	double			z;
 }					t_point;
 
-typedef struct		s_rays
+typedef struct		s_ray
 {
 	t_point			rp;
 	t_point			rd;
-}					t_rays;
+}					t_ray;
 
 typedef struct		s_cam
 {
@@ -151,7 +153,7 @@ typedef struct		s_cam
 	t_point			dir;
 	t_point			horpl;
 	t_point			vrtpl;
-	t_rays			**r;
+	t_ray			**r;
 }					t_cam;
 
 typedef struct		s_env

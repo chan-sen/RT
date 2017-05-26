@@ -1,5 +1,5 @@
 
-#include "./includes/rt.h"
+#include "./../includes/rt.h"
 
 t_sphr		**make_sphrs(int s)
 {

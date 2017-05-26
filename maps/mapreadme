@@ -15,7 +15,7 @@ map objects:
 	> 2 : vert l plane
 	> 3 : vert r plane
 	> 4 : corner
-	> cam,x,y,z (vectors)
+	> cam,x,y,z (dir v)
 	> sphere,radius,color
 	> col,radius,height,color
 	> cone,radius,height,color
