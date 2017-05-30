@@ -33,15 +33,45 @@ int			find_low_dis(int objs, t_objdis **o_ds)
 	return (low);
 }
 
+int		dist_order_check(t_objdis **o_ds, t_mapnums *nums)
+{
+	int		i;
+
+	i = 0;
+	while (i < (nums->pls + nums->sps + nums->cns + nums->cls + nums->lts))
+	{
+		if (o_ds[i]->dis > o_ds[i + 1]->dis)
+			return (0);
+	}
+	return (1);
+}
+
+void reorder_dists(t_objdis **o_ds, t_mapnums *nums)
+{
+	t_objdis	*swap;
+	int			i;
+	int			j;
+
+	while (!dist_order_check(o_ds))
+	{
+		if (!(o_ds[i]))
+			i = 0;
+		if (o_ds[i]->dis > o_ds[i + 1]->dis)
+		{
+			swap = o_ds[i];
+			o_ds[i] = o_ds[i + 1];
+			o_ds[i + 1] = swap;
+		}
+		i++;
+	}
+}
+
 t_objdis	*ray_intersects(t_env *env, t_ray *r, t_objdis **o_ds)
 {
 	// check ray for closest obj intersection and return that (t_objdis *)
+	reorder_dists(o_ds, env->map->nums);
 
-	int		low;
-
-	low = find_low_dis(objs_sum(env->map->nums), o_ds);
-
-
+	// potentially can just mv reorder out of this funct and make real ray intersections
 
 }
 
@@ -61,7 +91,11 @@ void traceray(t_env *env, t_ray	*ray, t_objdis **o_ds)
 	if (o_d)
 	{
 		env->cam->color = ray_obj_color(env, ray, o_d);
-		env->cam->ray[1] = build_light_ray(env, ray, o_d);
-		env->cam->lit = check_lights(env, env->cam->ray[1]);
+		while (l <= env->map->nums->lts)
+		{
+			env->cam->ray[l] = build_light_ray(env, ray, o_d);
+			env->cam->lit = check_lights(env, env->cam->ray[l]);
+			l++;
+		}
 	}
 }
