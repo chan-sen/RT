@@ -53,6 +53,7 @@ t_cam	*make_cam(t_map *map)
 	cam->dir = point_itod(map->objs->cdx, map->objs->cdy, map->objs->cdz);
 	cam->horpl = hori_plane(&cam->dir);
 	cam->vrtpl = vert_plane(&cam->dir);
+	cam->o_ds = NULL;
 	cam->r = NULL;
 	return (cam);
 }

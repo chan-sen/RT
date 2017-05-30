@@ -1,6 +1,28 @@
 
 #include "./../includes/rt.h"
 
+t_pln		**make_plns(int p)
+{
+	t_pln	**ret;
+	int		i;
+
+	ret = (t_pln **)malloc(sizeof(t_pln *) * (p + 1));
+	ret[s] = NULL;
+	i = 0;
+	while (i < p)
+	{
+		ret[i] = (t_pln *)malloc(sizeof(t_pln));
+		ret[i]->xog = 0;
+		ret[i]->yog = 0;
+		ret[i]->zog = 0;
+		ret[i]->pos = NULL;
+		ret[i]->w = 0;
+		ret[i]->h = 0;
+		i++;
+	}
+	return (ret);
+}
+
 t_sphr		**make_sphrs(int s)
 {
 	t_sphr	**ret;
@@ -94,7 +116,7 @@ t_lite		**make_lites(int l)
 	return (ret);
 }
 
-t_objects	*make_objects(int lte, int s, int cns, int cls)
+t_objects	*make_objects(t_mapnums *nums)
 {
 	t_objects	*ret;
 
@@ -105,13 +127,15 @@ t_objects	*make_objects(int lte, int s, int cns, int cls)
 	ret->cdx = 0;
 	ret->cdy = 0;
 	ret->cdz = 0;
-	ret->(*s) = 0;
-	ret->(*con) = 0;
-	ret->(*col) = 0;
-	ret->(*lte) = 0;
-	ret->sphrs = make_sphrs(s);
-	ret->cones = make_cones(cns);
-	ret->cols = make_cols(cls);
-	ret->lites = make_lites(lts);
+	ret->pln = 0;
+	ret->s = 0;
+	ret->con = 0;
+	ret->col = 0;
+	ret->lte = 0;
+	ret->plns = make_plns(nums->pls);
+	ret->sphrs = make_sphrs(nums->sps);
+	ret->cones = make_cones(nums->cns);
+	ret->cols = make_cols(nums->cls);
+	ret->lites = make_lites(nums->lts);
 	return (ret);
 }

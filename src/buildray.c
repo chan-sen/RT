@@ -16,6 +16,7 @@ t_point		cam_dir(t_env *env, t_point *cam)
 		* (camx + camy);
 	cd.z = env->cam->dir.z + env->cam->horpl.z + env->cam->vrtpl.z
 		* (camx + camy);
+
 	return (cd);
 }
 
@@ -26,6 +27,7 @@ t_ray		*cam_ray(t_env *env)
 	cr = (t_ray *)malloc(sizeof(t_ray));
 	cr->rp = point(env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 	cr->rd = cam_dir(env, &cr->rp);
+	cr->color = 0;
 	cr->lit = 0;
 	return (cr);
 }
@@ -35,6 +37,6 @@ void buildray(t_env *env)
 	if (env->cam->r)
 		clear_rays(env->cam->r);
 	env->cam->r = (t_rays **)malloc(sizeof(t_rays *)
-		* 2);
+		* (1 + env->map->nums->lts));
 	env->cam->r[0] = cam_ray(env);
 }

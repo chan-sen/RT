@@ -12,8 +12,51 @@
 
 #include "./../includes/rt.h"
 
+t_rayi		*set_rayi(void)
+{
+	t_rayi	*ri;
+
+	ri = (t_rayi *)malloc(sizeof(t_rayi));
+	ri->p = 0;
+	ri->s = 0;
+	ri->cn = 0;
+	ri->cl = 0;
+	ri->lt = 0;
+	return (ri);
+}
+
+int		ri_lessthan_objs(t_mapnums *nums, t_rayi *ri)
+{
+	if (ri->p < nums->pls)
+		return (1);
+	if (ri->s < nums->sps)
+		return (1);
+	if (ri->cn < nums->cns)
+		return (1);
+	if (ri->cl < nums->cls)
+		return (1);
+	if (ri->lt < nums->lts)
+		return (1);
+	return (0);
+}
+
+int				objs_sum(t_mapnums *n)
+{
+	return (n->pls + n->sps + n->cns + n->cls + n->lts);
+}
+
+double			distform3d(t_point a, t_point b)
+{
+	double		ret;
+
+	ret = sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2) + pow((b.z - a.z), 2));
+	return (ret);
+}
+
+
 void		raytracer(t_env *env)
 {
+	env->cam->o_ds = obj_dists(env);
 	env->cam->camy = 0;
 	while (env->cam->camy < WIN_HGT)
 	{
@@ -22,11 +65,17 @@ void		raytracer(t_env *env)
 		{
 			buildray(env);
 			traceray(env, env->cam->ray[0]);
-			put_image_pixel(env->img, env->cam->camx, env->cam->camy, env->cam->r->color);
+			put_image_pixel(env->img, env->cam->camx, env->cam->camy,
+				env->cam->color);
 			env->cam->camx++;
 		}
 		env->cam->camy++;
 	}
+	/*
+
+	clr_obj_dists(env->cam->o_ds);
+
+	*/
 }
 
 int		rt_hook(t_env *env)

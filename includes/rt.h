@@ -56,6 +56,17 @@ typedef struct		s_point
 	double			z;
 }					t_point;
 
+typedef struct		s_pln
+{
+	int				xog;
+	int				yog;
+	int				zog;
+	t_point			pos;
+	double			w;
+	double			h;
+	int				color;
+}					t_pln;
+
 typedef struct		s_sphr
 {
 	int				xog;
@@ -64,8 +75,6 @@ typedef struct		s_sphr
 	t_point			pos;
 	double			r;
 	int				color;
-	int				shine;
-	int				opac;
 }					t_sphr;
 
 typedef struct		s_cone
@@ -77,8 +86,6 @@ typedef struct		s_cone
 	double			r;
 	double			h;
 	int				color;
-	int				shine;
-	int				opac;
 }					t_cone;
 
 typedef struct		s_col
@@ -90,8 +97,6 @@ typedef struct		s_col
 	double			r;
 	double			h;
 	int				color;
-	int				shine;
-	int				opac;
 }					t_col;
 
 typedef struct		s_lite
@@ -100,7 +105,6 @@ typedef struct		s_lite
 	int				yog;
 	int				zog;
 	t_point			pos;
-	double			r;
 	int				shine;
 }					t_lite;
 
@@ -112,36 +116,58 @@ typedef struct		s_objects
 	int				cdx;
 	int				cdy;
 	int				cdz;
-	int				*s;
-	int				*con;
-	int				*col;
-	int				*lte;
+	int				pln;
+	int				s;
+	int				con;
+	int				col;
+	int				lte;
+	t_pln			**plns;
 	t_sphr			**sphrs;
 	t_cone			**cones;
 	t_col			**cols;
 	t_lite			**lites;
 }					t_objects;
 
-typedef struct		s_map
+typedef struct		s_mapnums
 {
 	int				x;
 	int				y;
 	int				z;
+	int				pls;
 	int				sps;
 	int				cns;
 	int				cls;
 	int				lts;
+}					t_mapnums;
+
+typedef struct		s_map
+{
+	t_mapnums		*nums;
+	t_objects		*objs;
 	int				***map;
-	t_objects		*objects;
 }					t_map;
+
+typedef struct		s_rayi
+{
+	int				p;
+	int				s;
+	int				cn;
+	int				cl;
+	int				lt;
+}					t_rayi;
 
 typedef struct		s_ray
 {
 	t_point			rp;
 	t_point			rd;
-	int				lit;
-	int				color;
 }					t_ray;
+
+typedef struct		s_objdis
+{
+	char			obj;
+	int				obji;
+	double			dis;
+}					t_objdis;
 
 typedef struct		s_cam
 {
@@ -153,7 +179,10 @@ typedef struct		s_cam
 	t_point			dir;
 	t_point			horpl;
 	t_point			vrtpl;
+	t_objdis		**o_ds;
 	t_ray			**r;
+	int				color;
+	int				lit;
 }					t_cam;
 
 typedef struct		s_env
