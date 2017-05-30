@@ -72,8 +72,6 @@ t_map	*make_map(int argc, char *argv)
 	t_map		*map;
 	char		*line;
 	int			z;
-	int			y;
-	int			x;
 
 	line = NULL;
 	set3to0(&z, &y, &x);

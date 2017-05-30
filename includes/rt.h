@@ -17,7 +17,7 @@
 # include <math.h>
 
 # include "./../libft/libft.h"
-# include "./../minilibx/minilibx.h"
+# include "./../minilibx/mlx.h"
 
 # define WIN_HGT	600
 # define WIN_WDT	600
@@ -47,7 +47,14 @@ typedef struct		s_keys
 	int				x;
 	int				r;
 	int				f;
-}
+}					t_keys;
+
+typedef struct		s_point
+{
+	double			x;
+	double			y;
+	double			z;
+}					t_point;
 
 typedef struct		s_sphr
 {
@@ -125,28 +132,21 @@ typedef struct		s_map
 	int				cls;
 	int				lts;
 	int				***map;
-	t_objects		*objectd;
+	t_objects		*objects;
 }					t_map;
-
-typedef struct		s_point
-{
-	double			x;
-	double			y;
-	double			z;
-}					t_point;
 
 typedef struct		s_ray
 {
 	t_point			rp;
 	t_point			rd;
+	int				lit;
+	int				color;
 }					t_ray;
 
 typedef struct		s_cam
 {
 	int				camx;
 	int				camy;
-	int				rfract;
-	int				rflect;
 	double			mvspd;
 	double			rtspd;
 	t_point			pos;
@@ -168,3 +168,5 @@ typedef struct		s_env
 	t_img			*img;
 	t_keys			*keys;
 }					t_env;
+
+#endif

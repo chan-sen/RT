@@ -47,8 +47,6 @@ t_cam	*make_cam(t_map *map)
 	cam = (t_cam *)malloc(sizeof(t_cam));
 	cam->camx = 0;
 	cam->camy = 0;
-	cam->rfract = 0;
-	cam->rflect = 0;
 	cam->mvspd = 5.0;
 	cam->rtspd = 3.0;
 	cam->pos = point_itod(map->objs->cpx, map->objs->cpy, map->objs->cpz);
@@ -75,16 +73,4 @@ t_env	*make_env(int argc, char **argv)
 	env->img = NULL;
 	env->keys = make_keys();
 	return (env);
-}
-
-t_img		make_img(void *mlx)
-{
-	t_img	image;
-
-	image.img = mlx_new_image(mlx, WIN_WDT, WIN_HGT);
-	image.data = mlx_get_data_addr(image.img, &image.bits,
-		&image.sizeline, &image.endian);
-	image.height = WIN_HGT;
-	image.width = WIN_WDT;
-	return (image);
 }
