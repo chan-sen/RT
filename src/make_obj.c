@@ -15,7 +15,7 @@ t_sphr		**make_sphrs(int s)
 		ret[i]->xog = 0;
 		ret[i]->yog = 0;
 		ret[i]->zog = 0;
-		ret[i]->pos = point(0, 0, 0);
+		ret[i]->pos = NULL;
 		ret[i]->r = 0;
 		ret[i]->shine = 0;
 		ret[i]->color = 0;
@@ -38,7 +38,7 @@ t_cone		**make_cones(int c)
 		ret[i]->xog = 0;
 		ret[i]->yog = 0;
 		ret[i]->zog = 0;
-		ret[i]->pos = point(0, 0, 0);
+		ret[i]->pos = NULL;
 		ret[i]->r = 0;
 		ret[i]->h = 0;
 		ret[i]->shine = 0;
@@ -62,7 +62,7 @@ t_col		**make_cols(int c)
 		ret[i]->xog = 0;
 		ret[i]->yog = 0;
 		ret[i]->zog = 0;
-		ret[i]->pos = point(0, 0, 0);
+		ret[i]->pos = NULL;
 		ret[i]->r = 0;
 		ret[i]->h = 0;
 		ret[i]->shine = 0;
@@ -86,7 +86,7 @@ t_lite		**make_lites(int l)
 		ret[i]->xog = 0;
 		ret[i]->yog = 0;
 		ret[i]->zog = 0;
-		ret[i]->pos = point(0, 0, 0);
+		ret[i]->pos = NULL;
 		ret[i]->r = 0;
 		ret[i]->shine = 0;
 		i++;

@@ -68,7 +68,7 @@ t_env	*make_env(int argc, char **argv)
 	env->time = 0;
 	env->oldtime = 0;
 	env->frametime = 0;
-	env->map = make_map();
+	env->map = make_map(argc, argv);
 	env->cam = make_cam(env->map);
 	env->img = NULL;
 	env->keys = make_keys();

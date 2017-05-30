@@ -74,7 +74,7 @@ t_map	*make_map(int argc, char *argv)
 	int			z;
 
 	line = NULL;
-	set3to0(&z, &y, &x);
+	z = 0;
 	fd = check(argc, argv);
 	map = (t_map *)malloc(sizeof(t_map));
 	set3to0(&map->x, &map->y, &map->z);
