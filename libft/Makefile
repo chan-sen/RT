@@ -17,6 +17,7 @@ CC = gcc
 CFLAG = -c -Wall -Werror -Wextra
 
 SRC_NAME =	ft_getnbr.c \
+			ft_getword.c \
 			countwords.c \
 			err_msg.c \
 			ft_atoi.c \

@@ -27,6 +27,7 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_getnbr(char *str, int *i);
+char				*ft_getword(char *str, int *i);
 int					countwords(char *str);
 int					err_msg(char *str);
 void				*ft_memset(void *b, int c, size_t len);
