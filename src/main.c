@@ -25,7 +25,7 @@ t_rayi		*set_rayi(void)
 	return (ri);
 }
 
-int		ri_lessthan_objs(t_mapnums *nums, t_rayi *ri)
+int		ri_lessthan_objs(t_rayi *ri, t_mapnums *nums)
 {
 	if (ri->p < nums->pls)
 		return (1);

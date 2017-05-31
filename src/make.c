@@ -55,6 +55,9 @@ t_cam	*make_cam(t_map *map)
 	cam->vrtpl = vert_plane(&cam->dir);
 	cam->o_ds = NULL;
 	cam->r = NULL;
+	cam->color = NULL;
+	cam->l = 0;
+	cam->t = 0;
 	return (cam);
 }
 

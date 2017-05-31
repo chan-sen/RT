@@ -17,7 +17,7 @@ void	fill_object(char *str, t_objects *objects, t_point p)
 		set_cam(str, objects, p);
 	else if (0 == ft_strncmp(str, "sphere", 6))
 		set_sphr(str, objects->sphrs[objects->s++], p);
-	else if (0 == ft_strcmp(str, "light", 5))
+	else if (0 == ft_strncmp(str, "light", 5))
 		set_lite(str, objects->lites[objects->lte++], p);
 	else if (0 == ft_strncmp(str, "cone", 4))
 		set_cone(str, objects->cones[objects->con++], p);
@@ -25,46 +25,67 @@ void	fill_object(char *str, t_objects *objects, t_point p)
 		set_col(str, objects->cols[objects->col++], p);
 }
 
-int		*fill_row(int fd, int mx, t_objects *objects);
+int		*fill_row(char *line, t_mapnums *nums, t_objects *objects)
 {
 	int		*ret;
-	char	*line;
 	int		x;
 	int		i;
 
 	line = NULL;
-	if (0 == get_next_line(fd, &line))
-		return (NULL);
-	ret = (int *)malloc(sizeof(int) * mx);
-	x = 0;
+	ret = (int *)malloc(sizeof(int) * nums->x);
+	x = nums->x;
+	nums->x = 0;
 	i = 0;
-	while (x < mx)
+	while (nums->x < x)
 	{
 		if (ft_isdigit(line[i]))
-			ret[y][x] = ft_get_nbr(line, &i);
+			ret[nums->x++] = ft_getnbr(line, &i);
 		else
 		{
-			ret[y][x] = 0;
-			fill_object(get_word(line, &i), objects, point_itod(x, y, z));
+			ret[nums->x++] = 0;
+			fill_object(ft_getword(line, &i), objects,
+				point_itod(nums->x++, nums->y, nums->z));
 		}
 		if (line[i] == ' ')
 			i++;
-		x++;
 	}
-	y++;
+	return (ret);
 }
 
-int		**fill_layer(int fd, int mx, int my, t_objects *objects)
+int		**fill_layer(int fd, t_mapnums *nums, t_objects *objects)
 {
 	int		**ret;
-	int		x;
+	char	*line;
 	int		y;
 
-	y = 0;
-	ret = (int **)malloc(sizeof(int *) * my)
-	while (y < my)
-		ret[y++] = fill_row(fd, mx, objects);
+	ret = (int **)malloc(sizeof(int *) * nums->y);
+	y = nums->y;
+	nums->y = 0;
+	while (nums->y < y)
+	{
+		if (0 == get_next_line(fd, &line))
+			return (NULL);
+		ret[nums->y++] = fill_row(line, nums, objects);
+	}
 	return (ret);
+}
+
+void pull_lites(char *s, int *lts)
+{
+	int		i;
+
+	i = 0;
+	(*lts) = ft_getnbr(s, &i);
+}
+
+void pull_objs(char *s, int *sps, int *cns, int *cls)
+{
+	int		i;
+
+	i = 0;
+	(*sps) = ft_getnbr(s, &i);
+	(*cns) = ft_getnbr(s, &i);
+	(*cls) = ft_getnbr(s, &i);
 }
 
 t_mapnums	*pull_nums(int fd)
@@ -85,19 +106,20 @@ t_mapnums	*pull_nums(int fd)
 	return (nums);
 }
 
-t_map	*make_map(int argc, char *argv)
+t_map	*make_map(int argc, char **argv)
 {
 	t_map		*m;
+	int			fd;
 	int			z;
 
-	line = NULL;
-	z = 0;
 	fd = check(argc, argv);
 	m = (t_map *)malloc(sizeof(t_map));
 	m->nums = pull_nums(fd);
 	m->objs = make_objects(m->nums);
 	m->map = (int ***)malloc(sizeof(int **) * m->nums->z);
-	while (z < m->nums->z)
-		m->map[z++] = fill_layer(fd, m->nums->x, m->nums->y, m->objects);
+	z = m->nums->z;
+	m->nums->z = 0;
+	while (m->nums->z < z)
+		m->map[m->nums->z++] = fill_layer(fd, m->nums, m->objs);
 	return (m);
 }

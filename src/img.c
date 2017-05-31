@@ -1,16 +1,16 @@
 
 #include "./../includes/rt.h"
 
-void		put_image_pixel(t_img *image, int x, int y, int color)
+void		put_image_pixel(t_img *image, int x, int y, t_color color)
 {
 	int			b;
 
 	if (x < 0 || y < 0 || x >= image->width || y >= image->height)
 		return ;
 	b = (4 * x) + (y * image->sizeline);
-	image->data[b++] = color & 0xFF;
-	image->data[b++] = (color >> 8) & 0xFF;
-	image->data[b++] = (color >> 16) & 0xFF;
+	image->data[b++] = (unsigned char)fmin(color.r * 255.0, 255.0);
+	image->data[b++] = (unsigned char)fmin(color.g * 255.0, 255.0);
+	image->data[b++] = (unsigned char)fmin(color.b * 255.0, 255.0);
 }
 
 t_img		*make_img(void *mlx)

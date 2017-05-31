@@ -27,7 +27,7 @@ void		set_sphr(char *str, t_sphr *sphr, t_point p)
 	sphr->pos = point(p.x, p.y, p.z);
 	sphr->r = ft_getnbr(str, &i);
 	i++;
-	sphr->color = ft_getnbr(str, &i);
+	sphr->color = icolorto(ft_getnbr(str, &i));
 }
 
 void		set_cone(char *str, t_cone *cone, t_point p)
@@ -43,7 +43,7 @@ void		set_cone(char *str, t_cone *cone, t_point p)
 	i++;
 	cone->h = ft_getnbr(str, &i);
 	i++;
-	cone->color = ft_getnbr(str, &i);
+	cone->color = icolorto(ft_getnbr(str, &i));
 }
 
 void		set_col(char *str, t_col *col, t_point p)
@@ -59,13 +59,17 @@ void		set_col(char *str, t_col *col, t_point p)
 	i++;
 	col->h = ft_getnbr(str, &i);
 	i++;
-	col->color = ft_getnbr(str, &i);
+	col->color = icolorto(ft_getnbr(str, &i));
 }
 
 void		set_lite(char *str, t_lite *lite, t_point p)
 {
+	int		i;
+
+	i = 5;
 	lite->xog = (int)(p.x);
 	lite->yog = (int)(p.y);
 	lite->zog = (int)(p.z);
 	lite->pos = point(p.x, p.y, p.z);
+	lite->lit = icolorto(ft_getnbr(str, &i));
 }

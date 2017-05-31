@@ -27,13 +27,22 @@ int		usage(int err)
 
 int		check(int argc, char **argv)
 {
-	char	***map;
 	int		fd;
 
 	if (argc != 2)
 		return (usage(1));
-	fd = open(argc[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	if (fd == 0)
-		return (NULL);
+		return (0);
 	return (fd);
+}
+
+t_color		icolorto(int c)
+{
+	t_color	ret;
+
+	ret.r = c & 0xFF;
+	ret.g = (c >> 8) & 0xFF;
+	ret.b = (c >> 16) & 0xFF;
+	return (ret);
 }
