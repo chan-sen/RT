@@ -25,21 +25,6 @@ t_rayi		*set_rayi(void)
 	return (ri);
 }
 
-int		ri_lessthan_objs(t_rayi *ri, t_mapnums *nums)
-{
-	if (ri->p < nums->pls)
-		return (1);
-	if (ri->s < nums->sps)
-		return (1);
-	if (ri->cn < nums->cns)
-		return (1);
-	if (ri->cl < nums->cls)
-		return (1);
-	if (ri->lt < nums->lts)
-		return (1);
-	return (0);
-}
-
 int				objs_sum(t_mapnums *n)
 {
 	return (n->pls + n->sps + n->cns + n->cls + n->lts);
@@ -64,9 +49,9 @@ void		raytracer(t_env *env)
 		while (env->cam->camx < WIN_WDT)
 		{
 			buildray(env);
-			traceray(env, env->cam->ray[0]);
-			put_image_pixel(env->img, env->cam->camx, env->cam->camy,
-				env->cam->color);
+			traceray(env, env->cam->r[0], env->cam->o_ds);
+			put_image_pixel(env->image, env->cam->camx, env->cam->camy,
+				env->cam->pcolor);
 			env->cam->camx++;
 		}
 		env->cam->camy++;
@@ -82,7 +67,7 @@ int		rt_hook(t_env *env)
 {
 	image_to(env);
 	raytracer(env);
-	key_optns(env);
+	// key_optns(env);
 	return (1);
 }
 
@@ -97,11 +82,11 @@ void		rt(t_env *env)
 	mlx_loop(env->mlx);
 }
 
-int		main(int argc, char **argv)
+int		main()
 {
 	t_env		*env;
 
-	env = make_env(argc, argv);
+	env = make_env();
 	if (env)
 		rt(env);
 	return (0);

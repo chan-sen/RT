@@ -17,6 +17,7 @@ t_img		*make_img(void *mlx)
 {
 	t_img	*image;
 
+	image = (t_img *)malloc(sizeof(t_img));
 	image->img = mlx_new_image(mlx, WIN_WDT, WIN_HGT);
 	image->data = mlx_get_data_addr(image->img, &image->bits,
 		&image->sizeline, &image->endian);
@@ -29,9 +30,9 @@ void		image_to(t_env *env)
 {
 	env->oldtime = env->time;
 	env->time = clock();
-	env->frame = (env->time - env->oldtime) / CLOCKS_PER_SEC;
+	env->frametime = (env->time - env->oldtime) / CLOCKS_PER_SEC;
 	mlx_clear_window(env->mlx, env->win);
-	if (env->image->img)
+	if (env->image)
 		mlx_put_image_to_window(env->mlx, env->win, env->image->img, 0, 0);
 	mlx_string_put(env->mlx, env->win, 0, 0, 0xFFFFFF,
 		ft_itoa((int)(1 / env->frametime)));

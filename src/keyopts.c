@@ -1,8 +1,8 @@
 
 #include "./../includes/rt.h"
 
-void		key_optns(t_env *env)
-{
+// void		key_optns(t_env *env)
+// {
 	// if (env->keys->w == 1)
 	// 	forward(env);
 	// if (env->keys->a == 1)
@@ -23,4 +23,4 @@ void		key_optns(t_env *env)
 	// 	z_i(env);
 	// if (env->keys->x == 1)
 	// 	z_o(env);
-}
+// }

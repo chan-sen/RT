@@ -1,6 +1,13 @@
 
 #include "./../includes/rt.h"
 
+int		exit_hook(t_env *env)
+{
+	free(env);
+	env = NULL;
+	exit(0);
+}
+
 void	set3to0(int *a, int *b, int *c)
 {
 	(*a) = 0;

@@ -16,6 +16,8 @@
 # include <time.h>
 # include <math.h>
 
+# include <stdio.h>
+
 # include "./../libft/libft.h"
 # include "./../minilibx/mlx.h"
 
@@ -149,9 +151,6 @@ typedef struct		s_objects
 
 typedef struct		s_mapnums
 {
-	int				x;
-	int				y;
-	int				z;
 	int				pls;
 	int				sps;
 	int				cns;
@@ -215,7 +214,7 @@ typedef struct		s_env
 	double			frametime;
 	t_map			*map;
 	t_cam			*cam;
-	t_img			*img;
+	t_img			*image;
 	t_keys			*keys;
 }					t_env;
 
@@ -259,15 +258,15 @@ t_point		scale_vectors(double c, t_point v);
 
 void		buildray(t_env *env);
 t_ray		*cam_ray(t_env *env);
-t_point		cam_dir(t_env *env, t_point *cam);
+t_point		cam_dir(t_env *env);
 
-t_point	hori_plane(t_point *dir);
-t_point	vert_plane(t_point *dir);
+t_point	hori_plane(int x, int y, int z);
+t_point	vert_plane(int x, int y);
 
-t_env	*make_env(int argc, char **argv);
-t_cam	*make_cam(t_map *map);
+t_env	*make_env(void);
+t_cam	*make_cam(void);
 t_keys			*make_keys(void);
-t_objects	*make_objects(t_mapnums *nums);
+t_objects	*make_objects(void);
 t_lite		**make_lites(int l);
 t_col		**make_cols(int c);
 t_cone		**make_cones(int c);
@@ -280,7 +279,7 @@ void		set_cone(char *str, t_cone *cone, t_point p);
 void		set_col(char *str, t_col *col, t_point p);
 void		set_lite(char *str, t_lite *lite, t_point p);
 
-t_map	*make_map(int argc, char **argv);
+t_map	*make_map();
 t_mapnums	*pull_nums(int fd);
 int		**fill_layer(int fd, t_mapnums *nums, t_objects *objects);
 int		*fill_row(char *line, t_mapnums *nums, t_objects *objects);
@@ -291,7 +290,9 @@ void pull_objs(char *s, int *sps, int *cns, int *cls);
 
 int		key_press(int key, t_env *env);
 int		key_release(int key, t_env *env);
-void		key_optns(t_env *env);
+// void		key_optns(t_env *env);
+
+int		exit_hook(t_env *env);
 
 int		check(int argc, char **argv);
 int		usage(int err);

@@ -12,6 +12,21 @@ t_objdis		*obj_dis(char *str, double dis, int i)
 	return (o_d);
 }
 
+int		ri_lessthan_objs(t_rayi *ri, t_mapnums *nums)
+{
+	if (ri->p < nums->pls)
+		return (1);
+	if (ri->s < nums->sps)
+		return (1);
+	if (ri->cn < nums->cns)
+		return (1);
+	if (ri->cl < nums->cls)
+		return (1);
+	if (ri->lt < nums->lts)
+		return (1);
+	return (0);
+}
+
 t_objdis		**find_objs(t_env *env, t_rayi *ri)
 {
 	t_objdis	**o_ds;
@@ -21,21 +36,22 @@ t_objdis		**find_objs(t_env *env, t_rayi *ri)
 	i = 0;
 	while (ri_lessthan_objs(ri, env->map->nums))
 	{
-		if (env->map->objs->plns[ri->p])
+		if (env->map->objs->plns)
 			o_ds[i++] = obj_dis("plane", distform3d(env->cam->pos,
 				env->map->objs->plns[ri->p]->pos), ri->p++);
-		else if (env->map->objs->sphrs[ri->s])
+		if (env->map->objs->sphrs)
 			o_ds[i++] = obj_dis("sphere", distform3d(env->cam->pos,
 				env->map->objs->sphrs[ri->s]->pos), ri->s++);
-		else if (env->map->objs->cones[ri->cn])
+		if (env->map->objs->cones)
 			o_ds[i++] = obj_dis("cone", distform3d(env->cam->pos,
 				env->map->objs->cones[ri->cn]->pos), ri->cn++);
-		else if (env->map->objs->cols[ri->cl])
+		if (env->map->objs->cols)
 			o_ds[i++] = obj_dis("col", distform3d(env->cam->pos,
 				env->map->objs->cols[ri->cl]->pos), ri->cl++);
-		else if (env->map->objs->lites[ri->lt])
+		if (env->map->objs->lites)
 			o_ds[i++] = obj_dis("lite", distform3d(env->cam->pos,
 				env->map->objs->lites[ri->lt]->pos), ri->lt++);
+		printf("%s: dis: %f\n", o_ds[i]->obj, o_ds[i]->dis);
 	}
 	return (o_ds);
 }
