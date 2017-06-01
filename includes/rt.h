@@ -297,6 +297,9 @@ int		key_press(int key, t_env *env);
 int		key_release(int key, t_env *env);
 // void		key_optns(t_env *env);
 
+
+
+
 int		exit_hook(t_env *env);
 
 int		check(int argc, char **argv);
