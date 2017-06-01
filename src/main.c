@@ -38,10 +38,10 @@ double			distform3d(t_point a, t_point b)
 	return (ret);
 }
 
-
 void		raytracer(t_env *env)
 {
 	env->cam->o_ds = obj_dists(env);
+	stuff_matrix(env);
 	printf("mama\n");
 	reorder_dists(env->cam->o_ds, env->map->nums);
 	env->cam->camy = 0;
@@ -50,7 +50,8 @@ void		raytracer(t_env *env)
 		env->cam->camx = 0;
 		while (env->cam->camx < WIN_WDT)
 		{
-			buildray(env);
+			if (!cam_ray(env, env->cam->camx, env->cam->camy))
+				return ;
 			traceray(env, env->cam->r[0], env->cam->o_ds);
 			put_image_pixel(env->image, env->cam->camx, env->cam->camy,
 				env->cam->pcolor);

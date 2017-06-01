@@ -79,8 +79,6 @@ typedef struct		s_pln
 	int				yog;
 	int				zog;
 	t_point			pos;
-	double			w;
-	double			h;
 	t_color			color;
 	// double			refl;
 }					t_pln;
@@ -212,6 +210,7 @@ typedef struct		s_env
 	double			time;
 	double			oldtime;
 	double			frametime;
+	double			matrix[4][4];
 	t_map			*map;
 	t_cam			*cam;
 	t_img			*image;
@@ -252,13 +251,19 @@ t_objdis		*obj_dis(const char *str, double dis, int i);
 t_point		point(double x, double y, double z);
 t_point		point_itod(int x, int y, int z);
 t_point		sub_vectors(t_point a, t_point b);
-double		dot_product(t_point a, t_point b);
+double		dot_product(t_point *a, t_point *b);
 t_point		add_vectors(t_point a, t_point b);
 t_point		scale_vectors(double c, t_point v);
 
-void		buildray(t_env *env);
-t_ray		*cam_ray(t_env *env);
-t_point		cam_dir(t_env *env);
+void stuff_matrix(t_env *env);
+void matrix_copy(double a[4][4], double b[4][4]);
+void matrix_mult(double ma[4][4], double mb[4][4], double d[4][4]);
+void matrix_identity(double matrix[4][4]);
+void vct_mult_mat(t_point *a, double matrix[4][4], t_point *b);
+double	norm_vector(t_point *a);
+
+int		buildray(t_env *env, int x, int y);
+int			cam_ray(t_env *env, int x, int y);
 
 t_point	hori_plane(int x, int y, int z);
 t_point	vert_plane(int x, int y);
@@ -307,5 +312,6 @@ double			distform3d(t_point a, t_point b);
 
 void	set4to0(int *a, int *b, int *c, int *d);
 void	set3to0(int *a, int *b, int *c);
+double	ft_invsqrtf(double a);
 
 #endif

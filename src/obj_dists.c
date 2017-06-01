@@ -32,7 +32,7 @@ int		dist_order_check(t_objdis **o_ds, t_mapnums *nums)
 	i = 0;
 	while (i < (nums->pls + nums->sps + nums->cns + nums->cls) - 1)
 	{
-		printf("so: %s\n", o_ds[i]->obj);
+		printf("o1: %s: %f\n", o_ds[i]->obj, o_ds[i]->dis);
 		if (o_ds[i]->dis > o_ds[i + 1]->dis)
 			return (0);
 		i++;
@@ -45,13 +45,14 @@ void reorder_dists(t_objdis **o_ds, t_mapnums *nums)
 	t_objdis	*swap;
 	int			i;
 
-	printf("HI\n");
+	printf("HI: d_o_c: %d\n", dist_order_check(o_ds, nums));
 	while (0 == dist_order_check(o_ds, nums))
 	{
 		i = 0;
 		printf("sa\n");
 		while (i < (nums->pls + nums->sps + nums->cns + nums->cls) - 1)
 		{
+			printf("dchk\n");
 			if (o_ds[i]->dis > o_ds[i + 1]->dis)
 			{
 				printf("swap\n");

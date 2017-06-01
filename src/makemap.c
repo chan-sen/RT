@@ -6,11 +6,11 @@ t_mapnums	*set_nums(void)
 	t_mapnums	*nums;
 
 	nums = (t_mapnums *)malloc(sizeof(t_mapnums));
-	nums->pls = 0;
+	nums->pls = 2;
 	nums->lts = 2;
 	nums->sps = 2;
-	nums->cns = 0;
-	nums->cls = 0;
+	nums->cns = 1;
+	nums->cls = 1;
 	return (nums);
 }
 

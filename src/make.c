@@ -1,45 +1,6 @@
 
 #include "./../includes/rt.h"
 
-t_point	hori_plane(int x, int y, int z)
-{
-	t_point		ret;
-
-	z = 1;
-	ret.z = 0;
-	if (x == 1 && y == 0)
-	{
-		ret.x = 1;
-		ret.y = 0.66;
-	}
-	if (x == -1 && y == 0)
-	{
-		ret.x = -1;
-		ret.y = -0.66;
-	}
-	if (x == 0 && y == 1)
-	{
-		ret.x = -0.66;
-		ret.y = 1;
-	}
-	if (x == 0 && y == -1)
-	{
-		ret.x = 0.66;
-		ret.y = -1;
-	}
-	return (ret);
-}
-
-t_point	vert_plane(int x, int y)
-{
-	t_point		ret;
-
-	ret.z = 0.66;
-	ret.x = x;
-	ret.y = y;
-	return (ret);
-}
-
 t_cam	*make_cam(void)
 {
 	t_cam	*cam;
@@ -49,12 +10,10 @@ t_cam	*make_cam(void)
 	cam->camy = 0;
 	cam->mvspd = 5.0;
 	cam->rtspd = 3.0;
-	cam->pos = point_itod(0, 0, 0);
-	cam->dir = point_itod(0, 0, 0);
-	cam->horpl = hori_plane(1, 0, 1);
-	cam->vrtpl = vert_plane(1, 0);
+	cam->pos = point_itod(0, 0, -1000);
+	cam->dir = point_itod(0, 0, 1);
 	cam->o_ds = NULL;
-	cam->r = NULL;
+	cam->r = (t_ray **)malloc(sizeof(t_ray *) * (3));
 	cam->obcolor = icolorto(0);
 	cam->pcolor = icolorto(0);
 	cam->l = 0;
@@ -72,6 +31,7 @@ t_env	*make_env(void)
 	env->time = 0;
 	env->oldtime = 0;
 	env->frametime = 0;
+	matrix_identity(env->matrix);
 	env->map = make_map();
 	env->cam = make_cam();
 	env->image = NULL;

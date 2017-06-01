@@ -9,19 +9,15 @@ t_pln		**make_plns(int p)
 	ret = (t_pln **)malloc(sizeof(t_pln *) * (p + 1));
 	ret[p] = NULL;
 	ret[0] = (t_pln *)malloc(sizeof(t_pln));
-	ret[0]->xog = 0;
-	ret[0]->yog = 0;
+	ret[0]->xog = 25;
+	ret[0]->yog = 25;
 	ret[0]->zog = 0;
-	ret[0]->pos = point_itod(0, 0, 0);
-	ret[0]->w = 0;
-	ret[0]->h = 0;
+	ret[0]->pos = point_itod(25, 25, 0);
 	ret[1] = (t_pln *)malloc(sizeof(t_pln));
-	ret[1]->xog = 0;
-	ret[1]->yog = 0;
+	ret[1]->xog = 50;
+	ret[1]->yog = 25;
 	ret[1]->zog = 0;
-	ret[1]->pos = point_itod(0, 0, 0);
-	ret[1]->w = 0;
-	ret[1]->h = 0;
+	ret[1]->pos = point_itod(50, 25, 0);
 
 	}
 	else
@@ -39,7 +35,7 @@ t_sphr		**make_sphrs(int s)
 	ret[0]->xog = 100;
 	ret[0]->yog = 50;
 	ret[0]->zog = 0;
-	ret[0]->pos = point_itod(50, 0, 0);
+	ret[0]->pos = point_itod(100, 50, 0);
 	ret[0]->r = 10;
 	ret[0]->color = icolorto(6000);
 	ret[1] = (t_sphr *)malloc(sizeof(t_sphr));
@@ -56,18 +52,17 @@ t_cone		**make_cones(int c)
 {
 	t_cone	**ret;
 
-	ret = (t_cone **)malloc(sizeof(t_cone *) * (c + 1));
-	ret[c] = NULL;
 	if (c > 0)
 	{
+		ret = (t_cone **)malloc(sizeof(t_cone *) * (c + 1));
 		ret[0] = (t_cone *)malloc(sizeof(t_cone));
-		ret[0]->xog = 0;
-		ret[0]->yog = 0;
-		ret[0]->zog = 0;
-		ret[0]->pos = point_itod(0, 0, 0);
+		ret[0]->xog = 25;
+		ret[0]->yog = 100;
+		ret[0]->zog = 25;
+		ret[0]->pos = point_itod(25, 100, 25);
 		ret[0]->r = 0;
 		ret[0]->h = 0;
-		ret[0]->color = icolorto(0);
+		ret[0]->color = icolorto(25);
 	}
 	else
 		return (NULL);
@@ -85,10 +80,10 @@ t_col		**make_cols(int c)
 	if (c > 0)
 	{
 		ret[0] = (t_col *)malloc(sizeof(t_col));
-		ret[0]->xog = 0;
-		ret[0]->yog = 0;
-		ret[0]->zog = 0;
-		ret[0]->pos = point_itod(0, 0, 0);
+		ret[0]->xog = 50;
+		ret[0]->yog = 200;
+		ret[0]->zog = 75;
+		ret[0]->pos = point_itod(50, 200, 75);
 		ret[0]->r = 0;
 		ret[0]->h = 0;
 		ret[0]->color = icolorto(0);
@@ -110,13 +105,13 @@ t_lite		**make_lites(int l)
 		ret[0]->xog = 25;
 		ret[0]->yog = 50;
 		ret[0]->zog = 50;
-		ret[0]->pos = point_itod(25, 50, 50);
+		ret[0]->pos = point_itod(0, 50, -2000);
 		ret[0]->lit = icolorto(16581374);
 		ret[1] = (t_lite *)malloc(sizeof(t_lite));
 		ret[1]->xog = 50;
 		ret[1]->yog = 50;
 		ret[1]->zog = 50;
-		ret[1]->pos = point_itod(50, 50, 50);
+		ret[1]->pos = point_itod(50, 500, -1500);
 		ret[1]->lit = icolorto(16581374);
 	}
 	else
@@ -134,10 +129,10 @@ t_objects	*make_objects()
 	ret->con = 0;
 	ret->col = 0;
 	ret->lte = 0;
-	ret->plns = make_plns(0);
+	ret->plns = make_plns(2);
 	ret->sphrs = make_sphrs(2);
-	ret->cones = make_cones(0);
-	ret->cols = make_cols(0);
+	ret->cones = make_cones(1);
+	ret->cols = make_cols(1);
 	ret->lites = make_lites(2);
 	return (ret);
 }

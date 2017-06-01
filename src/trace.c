@@ -55,11 +55,13 @@ int	sphere_intersect_check(t_sphr *s, t_ray *ray, double *t)
 	t_point		d;
 	double		disc;
 
-	a = dot_product(ray->rd, ray->rd);
+	printf("checksphr: p: %f d: %f\n", ray->rp.x, ray->rd.x);
+	a = dot_product(&ray->rd, &ray->rd);
 	d = sub_vectors(ray->rp, s->pos);
-	b = 2 * dot_product(ray->rd, d);
-	c = dot_product(d, d) - (s->r * s->r);
+	b = 2 * dot_product(&ray->rd, &d);
+	c = dot_product(&d, &d) - (s->r * s->r);
 	disc = b * b - 4 * a * c;
+	printf("discr: %f\n", disc);
 	if (disc < 0)
 		return (0);
 	else
@@ -87,8 +89,9 @@ t_objdis	*ray_intersects(t_env *env, t_ray *r, t_objdis **o_ds)
 	int		i;
 
 	i = 0;
-	while (o_ds[i])
+	while (i < objs_sum(env->map->nums))
 	{
+		printf("check closest ob\n");
 		if (obj_intersect_check(env, r, o_ds[i]))
 			return (o_ds[i]);
 		i++;
@@ -103,7 +106,7 @@ t_vmath		*sphere_intersect_spot(t_env *env, t_ray *r, t_objdis *o_d)
 	v = (t_vmath *)malloc(sizeof(t_vmath));
 	v->news = add_vectors(r->rp, scale_vectors(env->cam->t, r->rd));
 	v->n = sub_vectors(v->news, env->map->objs->sphrs[o_d->obji]->pos);
-	v->tmp = dot_product(v->n, v->n);
+	v->tmp = dot_product(&v->n, &v->n);
 	if (v->tmp == 0)
 		return (NULL);
 	v->tmp = 1.0 / sqrt(v->tmp);
@@ -155,9 +158,9 @@ t_ray	*build_light_ray(t_env *env, t_vmath *v)
 
 	r = NULL;
 	dist = sub_vectors(env->map->objs->lites[env->cam->l - 1]->pos, v->news);
-	if (dot_product(v->n, dist) <= 0.0)
+	if (dot_product(&v->n, &dist) <= 0.0)
 		return (NULL);
-	t = sqrt(dot_product(dist, dist));
+	t = sqrt(dot_product(&dist, &dist));
 	if (t <= 0.0)
 		return (NULL);
 	r = (t_ray *)malloc(sizeof(t_ray));
@@ -181,7 +184,7 @@ t_color	diffuse_lamb(t_lite *l, t_ray *r, t_point n, t_color c)
 	t_color	lamb;
 	double	lambert;
 
-	lambert = dot_product(r->rd, n);
+	lambert = dot_product(&r->rd, &n);
 	lamb.r = lambert * l->lit.r * c.r;
 	lamb.g = lambert * l->lit.g * c.g;
 	lamb.b = lambert * l->lit.b * c.b;
@@ -194,9 +197,9 @@ void	traceray(t_env *env, t_ray	*r, t_objdis **o_ds)
 	t_objdis	*o_d;
 	t_vmath		*v;
 
-	reorder_dists(o_ds, env->map->nums);
 	env->cam->t = 20000.0;
 	o_d = ray_intersects(env, r, o_ds);
+	printf("od: %s[%d]\n", o_d->obj, o_d->obji);
 	if (o_d)
 	{
 		v = intersection_spot(env, r, o_d);

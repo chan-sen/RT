@@ -17,16 +17,20 @@ t_point		add_vectors(t_point a, t_point b)
 	return (ret);
 }
 
-double		dot_product(t_point a, t_point b)
+double		dot_product(t_point *a, t_point *b)
 {
-	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
+	printf("ha%p\n", a);
+	return ((a->x * b->x) + (a->y * b->y) + (a->z * b->z));
 }
 
 t_point		sub_vectors(t_point a, t_point b)
 {
 	t_point	ret;
 
+	printf("x: %f y: %f z: %f\n", b.x, b.y, b.z);
+	printf("a.x: %f y: %f z: %f\n", a.x, a.y, a.z);
 	ret = point((a.x - b.x), (a.y - b.y), (a.z - b.z));
+	printf("ret.x: %f y: %f z: %f\n", ret.x, ret.y, ret.z);
 	return (ret);
 }
 

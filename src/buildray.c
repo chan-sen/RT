@@ -2,39 +2,41 @@
 
 #include "./../includes/rt.h"
 
-t_point		cam_dir(t_env *env)
+int		cam_ray(t_env *env, int x, int y)
 {
-	t_point		cd;
-	double		camx;
-	double		camy;
+	t_point	tmp;
+	t_point	yah;
 
-	camx = 2 * env->cam->camx / (double)(WIN_WDT - 1);
-	camy = 2 * env->cam->camy / (double)(WIN_HGT - 1);
-	cd.x = env->cam->dir.x + env->cam->horpl.x + env->cam->vrtpl.x
-		* (camx + camy);
-	cd.y = env->cam->dir.y + env->cam->horpl.y + env->cam->vrtpl.y
-		* (camx + camy);
-	cd.z = env->cam->dir.z + env->cam->horpl.z + env->cam->vrtpl.z
-		* (camx + camy);
+	env->cam->r[0] = (t_ray *)malloc(sizeof(t_ray));
+	tmp =  point(x, y, 90 * 10);
+	printf("x: %f y: %f z: %f\n", env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
 
-	return (cd);
+	env->cam->r[0]->rp = point(env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
+
+	printf("x: %f y: %f z: %f\n", env->cam->r[0]->rp.x, env->cam->r[0]->rp.y, env->cam->r[0]->rp.z);
+
+	vct_mult_mat(&tmp, env->matrix, &yah);
+
+	env->cam->r[0]->rd = sub_vectors(yah, env->cam->r[0]->rp);
+
+	printf("x: %f y: %f z: %f\n", env->cam->r[0]->rd.x, env->cam->r[0]->rd.y, env->cam->r[0]->rd.z);
+	printf("p:%p", &env->cam->r[0]->rd);
+
+	if (!norm_vector(&env->cam->r[0]->rd))
+		return (0);
+	printf("cam:lz\n");
+	return (1);
 }
-
-t_ray		*cam_ray(t_env *env)
-{
-	t_ray	*cr;
-
-	cr = (t_ray *)malloc(sizeof(t_ray));
-	cr->rp = point(env->cam->pos.x, env->cam->pos.y, env->cam->pos.z);
-	cr->rd = cam_dir(env);
-	return (cr);
-}
-
-void buildray(t_env *env)
-{
-	// if (env->cam->r)
-	// 	clear_rays(env->cam->r);
-	env->cam->r = (t_ray **)malloc(sizeof(t_ray *)
-		* (1 + env->map->nums->lts));
-	env->cam->r[0] = cam_ray(env);
-}
+//
+// int		buildray(t_env *env, int x, int y)
+// {
+// 	// if (env->cam->r)
+// 	// 	clear_rays(env->cam->r);
+// 	printf("supbebebuildray\n");
+// 	if (!cam_ray(env, x, y))
+// 		return (0);
+// 	printf("sup\n");
+// 	if (!env->cam->r[0])
+// 		return (0);
+// 	return (1);
+// }
