@@ -247,7 +247,7 @@ t_rayi		*set_rayi(void);
 
 t_objdis	**obj_dists(t_env *env);
 t_objdis		**find_objs(t_env *env, t_rayi *ri);
-t_objdis		*obj_dis(char *str, double dis, int i);
+t_objdis		*obj_dis(const char *str, double dis, int i);
 
 t_point		point(double x, double y, double z);
 t_point		point_itod(int x, int y, int z);

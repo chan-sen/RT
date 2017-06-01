@@ -42,6 +42,8 @@ double			distform3d(t_point a, t_point b)
 void		raytracer(t_env *env)
 {
 	env->cam->o_ds = obj_dists(env);
+	printf("mama\n");
+	reorder_dists(env->cam->o_ds, env->map->nums);
 	env->cam->camy = 0;
 	while (env->cam->camy < WIN_HGT)
 	{

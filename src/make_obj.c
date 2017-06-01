@@ -5,7 +5,7 @@ t_pln		**make_plns(int p)
 {
 	t_pln	**ret;
 
-	if (p){
+	if (p > 0){
 	ret = (t_pln **)malloc(sizeof(t_pln *) * (p + 1));
 	ret[p] = NULL;
 	ret[0] = (t_pln *)malloc(sizeof(t_pln));
@@ -58,7 +58,7 @@ t_cone		**make_cones(int c)
 
 	ret = (t_cone **)malloc(sizeof(t_cone *) * (c + 1));
 	ret[c] = NULL;
-	if (c)
+	if (c > 0)
 	{
 		ret[0] = (t_cone *)malloc(sizeof(t_cone));
 		ret[0]->xog = 0;
@@ -82,7 +82,7 @@ t_col		**make_cols(int c)
 	ret = (t_col **)malloc(sizeof(t_col *) * (c + 1));
 	ret[c] = NULL;
 	i = 0;
-	if (c)
+	if (c > 0)
 	{
 		ret[0] = (t_col *)malloc(sizeof(t_col));
 		ret[0]->xog = 0;
@@ -104,7 +104,7 @@ t_lite		**make_lites(int l)
 
 	ret = (t_lite **)malloc(sizeof(t_lite *) * (l + 1));
 	ret[l] = NULL;
-	if (l)
+	if (l > 0)
 	{
 		ret[0] = (t_lite *)malloc(sizeof(t_lite));
 		ret[0]->xog = 25;

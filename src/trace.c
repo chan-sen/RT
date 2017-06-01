@@ -27,38 +27,6 @@ int			find_low_dis(int objs, t_objdis **o_ds)
 	return (low);
 }
 
-int		dist_order_check(t_objdis **o_ds, t_mapnums *nums)
-{
-	int		i;
-
-	i = 0;
-	while (i < (nums->pls + nums->sps + nums->cns + nums->cls + nums->lts))
-	{
-		if (o_ds[i]->dis > o_ds[i + 1]->dis)
-			return (0);
-	}
-	return (1);
-}
-
-void reorder_dists(t_objdis **o_ds, t_mapnums *nums)
-{
-	t_objdis	*swap;
-	int			i;
-
-	while (!dist_order_check(o_ds, nums))
-	{
-		if (!(o_ds[i]))
-			i = 0;
-		if (o_ds[i]->dis > o_ds[i + 1]->dis)
-		{
-			swap = o_ds[i];
-			o_ds[i] = o_ds[i + 1];
-			o_ds[i + 1] = swap;
-		}
-		i++;
-	}
-}
-
 int	sphere_closest_intersect(double b, double disc, double *t)
 {
 	double		sqrtdisc;
@@ -220,15 +188,6 @@ t_color	diffuse_lamb(t_lite *l, t_ray *r, t_point n, t_color c)
 	return (lamb);
 }
 
-t_color	space(void)
-{
-	t_color	s;
-
-	s.r = 0;
-	s.g = 0;
-	s.b = 0;
-	return (s);
-}
 
 void	traceray(t_env *env, t_ray	*r, t_objdis **o_ds)
 {
@@ -257,5 +216,5 @@ void	traceray(t_env *env, t_ray	*r, t_objdis **o_ds)
 		}
 	}
 	if (!o_d)
-		env->cam->pcolor = space();
+		env->cam->pcolor = icolorto(0);
 }
