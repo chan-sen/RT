@@ -36,8 +36,8 @@ t_sphr		**make_sphrs(int s)
 	ret = (t_sphr **)malloc(sizeof(t_sphr *) * (s + 1));
 	ret[s] = NULL;
 	ret[0] = (t_sphr *)malloc(sizeof(t_sphr));
-	ret[0]->xog = 50;
-	ret[0]->yog = 0;
+	ret[0]->xog = 100;
+	ret[0]->yog = 50;
 	ret[0]->zog = 0;
 	ret[0]->pos = point_itod(50, 0, 0);
 	ret[0]->r = 10;
